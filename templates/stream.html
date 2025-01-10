@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>YOLO Stream</title>
+</head>
+<body>
+    <h1>YOLO Real-Time Detection</h1>
+    <img id="video_feed" src="" alt="Video Feed" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.min.js" ></script>
+
+    <script>
+        var socket = io.connect('http://' + document.domain + ':' + location.port);
+        
+        socket.on('connect', function() {
+            socket.emit('start_stream', {
+                model: 'my_model.pt',
+                resolution: '1280x720',
+                thresh: 0.5
+            });
+        });
+        
+        socket.on('frame', function(data) {
+            var img = document.getElementById('video_feed');
+            img.src = 'data:image/jpeg;base64,' + hexToBase64(data.image);
+        });
+        
+        socket.on('error', function(data) {
+            alert(data.message);
+        });
+        
+        function hexToBase64(hex) {
+            return btoa(hex.match(/\w{2}/g).map(function(a) {
+                return String.fromCharCode(parseInt(a, 16));
+            }).join(""));
+        }
+    </script>
+</body>
+</html>
