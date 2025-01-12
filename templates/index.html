@@ -5,16 +5,16 @@
     <title>YOLO Detection</title>
 </head>
 <body>
-    <h1>YOLO Object Detection</h1>
+    <h1>Lettuce Detection</h1>
     <form method="post" action="/upload" enctype="multipart/form-data">
         <label for="model">YOLO Model Path:</label>
-        <input type="text" name="model" id="model" required><br><br>
+        <input type="text" name="model" id="model" required value="my_model.pt"><br><br>
         
         <label for="file">Upload Image/Video:</label>
         <input type="file" name="file" id="file" required><br><br>
         
         <label for="resolution">Resolution (e.g., 1280x720):</label>
-        <input type="text" name="resolution" id="resolution"><br><br>
+        <input type="text" name="resolution" id="resolution" value="1280x720"><br><br>
         
         <label for="thresh">Confidence Threshold (0.0 - 1.0):</label>
         <input type="text" name="thresh" id="thresh" value="0.5"><br><br>
